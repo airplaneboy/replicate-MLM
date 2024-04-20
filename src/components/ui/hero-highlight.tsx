@@ -55,7 +55,15 @@ export const HeroHighlight = ({
   );
 };
 
-export const Highlight = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+export const Highlight = ({
+  children,
+  className,
+  duration,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  duration?: number;
+}) => {
   return (
     <motion.span
       initial={{
@@ -65,8 +73,8 @@ export const Highlight = ({ children, className }: { children: React.ReactNode; 
         backgroundSize: '100% 100%',
       }}
       transition={{
-        duration: 2,
-        ease: 'linear',
+        duration: duration,
+        ease: 'easeOut',
         delay: 0.5,
       }}
       style={{
@@ -75,7 +83,7 @@ export const Highlight = ({ children, className }: { children: React.ReactNode; 
         display: 'inline',
       }}
       className={cn(
-        `relative inline-block pb-1   px-1 rounded-lg bg-gradient-to-r from-indigo-300 to-purple-300 dark:from-indigo-500 dark:to-purple-500`,
+        `relative inline-block pb-1 px-1 rounded-lg bg-gradient-to-r from-green-400 via-purple-700 to-blue-400 dark:from-indigo-500 dark:to-purple-500`,
         className
       )}>
       {children}

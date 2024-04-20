@@ -42,7 +42,7 @@ export default function Home() {
     <main className='flex min-h-screen flex-col items-center justify-center p-24 bg-gray-100'>
       <div className='flex flex-col z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex bg-white p-10 border-solid border-2 border-gray-300 rounded-3xl'>
         <Head>
-          <title>Replicate + Next.js</title>
+          <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
         </Head>
 
         <p className='mb-4 text-lg text-gray-700'>
