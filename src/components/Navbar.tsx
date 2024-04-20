@@ -29,7 +29,7 @@ const Navbar = () => {
         </div>
       </div>
       <div className='navbar-center'>
-        <Link href='/generate' className='btn btn-ghost text-xl font-extrabold tracking-wider '>
+        <Link href='/generate' className='text-xl font-extrabold tracking-wider '>
           {process.env.NEXT_PUBLIC_SITE_NAME}
         </Link>
       </div>
