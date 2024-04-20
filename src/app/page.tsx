@@ -60,6 +60,12 @@ export default function Home() {
             placeholder='Enter a prompt to display an image'
             className='px-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black'
           />
+          <input
+            type='text'
+            name='version'
+            placeholder='Input a version'
+            className='px-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black'
+          />
           <button
             type='submit'
             className='px-4 py-2 mt-4 w-full bg-blue-500 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500'>
