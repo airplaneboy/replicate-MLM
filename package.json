@@ -10,16 +10,21 @@
     "test": "npm run lint && npm run build"
   },
   "dependencies": {
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.1.7",
+    "mini-svg-data-uri": "^1.4.4",
     "next": "^14.2.2",
     "react": "^18",
     "react-dom": "^18",
-    "replicate": "^0.29.1"
+    "replicate": "^0.29.1",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "daisyui": "^4.10.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",
     "postcss": "^8",
