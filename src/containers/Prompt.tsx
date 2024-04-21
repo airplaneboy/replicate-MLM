@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { cn } from '@/utils/cn';
-
+import PaperPlane from '@/public/paper-plane.gif';
 import { Prediction } from 'replicate';
 import Link from 'next/link';
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -47,35 +47,73 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
-      {error && <div className='mt-4 text-red-500'>{error}</div>}
+      {error && (
+        <div role='alert' className='alert alert-error'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            className='stroke-current shrink-0 h-6 w-6'
+            fill='none'
+            viewBox='0 0 24 24'>
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
+              d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
+            />
+          </svg>
+          <span>{error}</span>
+        </div>
+      )}
       <form onSubmit={handleSubmit} className='flex-1 flex space-between gap-8 flex-col'>
-        <div role='tablist' className='tabs tabs-lifted'>
+        <div role='tablist' className='tabs tabs-boxed'>
           <Link
             href='/prompt/lorenzomarines-astra'
             role='tab'
-            className={cn(segment == 'lorenzomarines-astra' && 'tab-active', 'tab font-bold font-nunito')}>
+            className={cn(
+              segment == 'lorenzomarines-astra' && 'tab-active !text-white !bg-blue-800 ',
+              'tab font-bold font-nunito '
+            )}>
             astra
           </Link>
           <Link
             href='/prompt/aiforever-kandinsky2'
             role='tab'
-            className={cn(segment == 'aiforever-kandinsky2' && 'tab-active', 'tab font-bold font-nunito')}>
+            className={cn(
+              segment == 'aiforever-kandinsky2' && 'tab-active !text-white !bg-blue-800 ',
+              'tab font-bold font-nunito '
+            )}>
             kandinsky-2
           </Link>
         </div>
-        <label className='text-2xl font-bold capitalize'>
-          Let your imagination run wild
-          <textarea
-            name='prompt'
-            placeholder='Enter Link prompt to display an image'
-            className={
-              'mt-3 textarea textarea-ghost border border-neutral-700 w-full focus:bg-[unset] font-normal font-nunito h-72'
-            }
+
+        {/* <label className='text-base font-bold capitalize'> */}
+        {/* Let your imagination run wild */}
+        <textarea
+          name='prompt'
+          placeholder='Write a prompt...'
+          className={
+            'mt-3 rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-2xl'
+          }
+        />
+        {/* </label> */}
+
+        <div className='join join-vertical w-full'>
+          <div className='collapse collapse-arrow join-item border border-base-300'>
+            <input type='checkbox' name='my-accordion-4' />
+            <div className='collapse-title text-xl font-medium'>More Options</div>
+            <div className='collapse-content'>{children}</div>
+          </div>
+        </div>
+
+        <button
+          type='button'
+          className='relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-xl capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
+          <Image
+            src={PaperPlane}
+            alt='git animated paper plane'
+            className='object-cover rounded-md border-gray-300 z-10 h-full overflow-visible rotate-45 absolute left-5'
           />
-        </label>
-        {children}
-        <button type='button' className='btn btn-active btn-lg'>
-          Imagine
+          generate
         </button>
       </form>
       <div className='w-full flex-1 border border-neutral-800 rounded-lg'>

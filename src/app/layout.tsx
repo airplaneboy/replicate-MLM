@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Nunito } from 'next/font/google';
-import './globals.css';
+import '../../styles/globals.css';
 import Footer from '@/components/Footer';
 import Navbar from '@/components/Navbar';
 // import { Courier_Prime } from 'next/font/google';

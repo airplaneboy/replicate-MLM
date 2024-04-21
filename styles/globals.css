@@ -19,20 +19,41 @@ input {
   @apply bg-black text-white rounded-r-md inline-block px-5 py-3;
 }
 
+/* Default */
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+/* End Default */
+
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 14px !important;
+  width: 12px !important;
+  background-color: #000 !important;
 }
 
 ::-webkit-scrollbar-track {
-  /* background-color: #e4e4e400; */
-  border-radius: 100px !important;
+  background-color: #00000000 !important;
   margin-block: 12px !important;
 }
 
 ::-webkit-scrollbar-thumb {
   border: 3px solid #000 !important;
   border-radius: 100px !important;
-  background-color: #fff !important;
-  /* background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%); */
+  background-color: #424242 !important;
 }
