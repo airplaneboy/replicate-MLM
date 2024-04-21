@@ -106,7 +106,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         <button
-          type='button'
+          type='submit'
           className='relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-xl capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
           <Image
             src={PaperPlane}
