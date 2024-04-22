@@ -120,7 +120,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           <Image
             src={PaperPlane}
             alt='git animated paper plane'
-            className='object-cover rounded-md border-gray-300 z-10 h-full overflow-visible rotate-45 absolute left-5'
+            className='scale-75 object-cover rounded-md border-gray-300 z-10 h-full overflow-visible rotate-45 absolute left-5'
           />
           generate
         </button>
