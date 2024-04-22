@@ -16,7 +16,7 @@ const Astra = () => {
 
   //Classes
   const textArea = 'text-xs text-neutral-500 font-semibold capitalize';
-  const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-[45%] gap-3';
+  const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
   const input: string | undefined =
     'input input-bordered w-full max-w-xs font-extrabold font-nunito !bg-[unset] text-xl input-ghost';
@@ -28,18 +28,22 @@ const Astra = () => {
         value='/lorenzomarines-astra'
         className='!w-0 !h-0 opacity-0 absolute !max-w-0 !max-h-0'
       />
-      <label className={textArea}>
+      <label className={textArea + ' px-2'}>
         Negative prompt
-        <textarea
-          value={negativePrompt}
-          onChange={(e) => setNegativePrompt(e.target.value)}
-          name='negative_prompt'
-          placeholder='Instruct the model on what to steer clear of or leave out when crafting the image'
-          className='text-lg font-bold font-nunito mt-3 textarea textarea-ghost w-full focus:bg-[unset] h-20'
-        />
+        <div className='relative'>
+          <div className='absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-10 pointer-events-none' />
+
+          <textarea
+            value={negativePrompt}
+            onChange={(e) => setNegativePrompt(e.target.value)}
+            name='negative_prompt'
+            placeholder='Instruct the model on what to steer clear of or leave out when crafting the image'
+            className='focus:z-20 relative max-lg:!px-2 max-md:[scrollbar-width:thin] text-base lg:text-lg font-bold font-nunito mt-3 textarea textarea-ghost w-full focus:bg-[unset] h-20'
+          />
+        </div>
       </label>
 
-      <div className='flex flex-row justify-between gap-10 my-10 flex-wrap'>
+      <div className='grid grid-cols-2 lg:flex flex-row justify-between gap-10 my-10 flex-wrap max-lg:!px-2 '>
         <label className={label}>
           Width
           <input
@@ -100,76 +104,79 @@ const Astra = () => {
           </select>
         </label>
       </div>
-      <label>
-        Number of denoising steps
-        <div className='flex flex-row gap-5 items-center justify-between mt-3'>
-          <input
-            value={numberOfInferenceSteps}
-            onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
-            name='num_inference_steps'
-            type='range'
-            min={1}
-            max='500'
-            className='range border-none range-info'
-          />
-          <input
-            type='number'
-            min={1}
-            max={500}
-            className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={numberOfInferenceSteps}
-            onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
-          />
-        </div>
-      </label>
-      <label>
-        Scale for classifier-free guidance
-        <div className='flex flex-row gap-5 items-center justify-between mt-3'>
-          <input
-            value={guidanceScale}
-            onChange={(e) => setGuidanceScale(+e.target.value)}
-            name='guidance_scale'
-            type='range'
-            min={1}
-            max='20'
-            className='range border-none range-info'
-          />
-          <input
-            type='number'
-            min={1}
-            max={20}
-            className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={guidanceScale}
-            onChange={(e) => setGuidanceScale(+e.target.value)}
-          />
-        </div>
-      </label>
-      <label>
-        Prompt Strength
-        <div className='flex flex-row gap-5 items-center justify-between mt-3'>
-          <input
-            value={promptStrength}
-            onChange={(e) => setPromptStrength(+e.target.value)}
-            name='prompt_strength'
-            type='range'
-            min={0}
-            max='1'
-            step={0.01}
-            className='range border-none range-info'
-          />
-          <input
-            type='number'
-            min={0}
-            max={1}
-            step={0.01}
-            className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={promptStrength}
-            onChange={(e) => setPromptStrength(+e.target.value)}
-          />
-        </div>
-      </label>
 
-      <label className='cursor-pointer label mt-10 flex flex-row justify-start gap-10 items-center w-full'>
+      <div className='max-lg:!px-2 '>
+        <label>
+          Number of denoising steps
+          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+            <input
+              value={numberOfInferenceSteps}
+              onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
+              name='num_inference_steps'
+              type='range'
+              min={1}
+              max='500'
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={1}
+              max={500}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={numberOfInferenceSteps}
+              onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          Scale for classifier-free guidance
+          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+            <input
+              value={guidanceScale}
+              onChange={(e) => setGuidanceScale(+e.target.value)}
+              name='guidance_scale'
+              type='range'
+              min={1}
+              max='20'
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={1}
+              max={20}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={guidanceScale}
+              onChange={(e) => setGuidanceScale(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          Prompt Strength
+          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+            <input
+              value={promptStrength}
+              onChange={(e) => setPromptStrength(+e.target.value)}
+              name='prompt_strength'
+              type='range'
+              min={0}
+              max='1'
+              step={0.01}
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={0}
+              max={1}
+              step={0.01}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={promptStrength}
+              onChange={(e) => setPromptStrength(+e.target.value)}
+            />
+          </div>
+        </label>
+      </div>
+
+      <label className='cursor-pointer label mt-10 flex flex-row justify-between lg:justify-start gap-10 items-center w-full'>
         <span className='label-text text-base'>Apply Watermark</span>
         <input
           type='checkbox'

@@ -13,7 +13,7 @@ const Astra = () => {
 
   //Classes
   const textArea = 'text-xs text-neutral-500 font-semibold capitalize';
-  const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-[45%] gap-3';
+  const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
   return (
     <div className='flex flex-col justify-evenly gap-5 font-nunito font-semibold text-neutral-400 py-10 px-2'>
@@ -33,7 +33,7 @@ const Astra = () => {
         />
       </label> */}
 
-      <div className='flex flex-row justify-between gap-10 my-10 flex-wrap'>
+      <div className='grid grid-cols-2 lg:flex flex-row justify-between gap-10 mb-10 flex-wrap max-lg:!px-2 '>
         <label className={label}>
           Width
           <select
@@ -105,72 +105,75 @@ const Astra = () => {
           </select>
         </label>
       </div>
-      <label>
-        Number of denoising steps
-        <div className='flex flex-row gap-5 items-center justify-between mt-3'>
-          <input
-            value={numberOfInferenceSteps}
-            onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
-            name='num_inference_steps'
-            type='range'
-            min={1}
-            max='500'
-            className='range border-none range-info'
-          />
-          <input
-            type='number'
-            min={1}
-            max={500}
-            className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={numberOfInferenceSteps}
-            onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
-          />
-        </div>
-      </label>
-      <label>
-        Scale for classifier-free guidance
-        <div className='flex flex-row gap-5 items-center justify-between mt-3'>
-          <input
-            value={guidanceScale}
-            onChange={(e) => setGuidanceScale(+e.target.value)}
-            name='guidance_scale'
-            type='range'
-            min={1}
-            max='20'
-            className='range border-none range-info'
-          />
-          <input
-            type='number'
-            min={1}
-            max={20}
-            className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={guidanceScale}
-            onChange={(e) => setGuidanceScale(+e.target.value)}
-          />
-        </div>
-      </label>
-      <label>
-        Output Quality
-        <div className='flex flex-row gap-5 items-center justify-between mt-3'>
-          <input
-            value={outputQuality}
-            onChange={(e) => setOutputQuality(+e.target.value)}
-            name='output_quality'
-            type='range'
-            min={0}
-            max='100'
-            className='range border-none range-info'
-          />
-          <input
-            type='number'
-            min={0}
-            max={100}
-            className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={outputQuality}
-            onChange={(e) => setOutputQuality(+e.target.value)}
-          />
-        </div>
-      </label>
+
+      <div className='max-lg:!px-2 '>
+        <label>
+          Number of denoising steps
+          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+            <input
+              value={numberOfInferenceSteps}
+              onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
+              name='num_inference_steps'
+              type='range'
+              min={1}
+              max='500'
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={1}
+              max={500}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={numberOfInferenceSteps}
+              onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          Scale for classifier-free guidance
+          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+            <input
+              value={guidanceScale}
+              onChange={(e) => setGuidanceScale(+e.target.value)}
+              name='guidance_scale'
+              type='range'
+              min={1}
+              max='20'
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={1}
+              max={20}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={guidanceScale}
+              onChange={(e) => setGuidanceScale(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          Output Quality
+          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+            <input
+              value={outputQuality}
+              onChange={(e) => setOutputQuality(+e.target.value)}
+              name='output_quality'
+              type='range'
+              min={0}
+              max='100'
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={0}
+              max={100}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={outputQuality}
+              onChange={(e) => setOutputQuality(+e.target.value)}
+            />
+          </div>
+        </label>
+      </div>
     </div>
   );
 };

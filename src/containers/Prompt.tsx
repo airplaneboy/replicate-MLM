@@ -101,7 +101,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           name='prompt'
           placeholder='Write a prompt...'
           className={
-            'mt-3 max-sm:border-x-0 rounded-none sm:p-5 lg:rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-lg sm:text-2xl'
+            'mt-3 max-sm:border-x-0 lg:max-w-[calc(100%_-_8px)] self-center rounded-none sm:p-5 lg:rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-lg sm:text-2xl'
           }
         />
         {/* </label> */}
@@ -110,7 +110,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           <div className='collapse collapse-arrow join-item max-sm:border-x-none max-sm:rounded-none border border-base-300'>
             <input type='checkbox' name='my-accordion-4' />
             <div className='collapse-title text-xl font-medium'>More Options</div>
-            <div className='collapse-content'>{children}</div>
+            <div className='collapse-content max-lg:p-0'>{children}</div>
           </div>
         </div>
 
