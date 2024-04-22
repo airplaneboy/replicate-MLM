@@ -1,18 +1,16 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const Astra = () => {
-  const negativePrompt = useRef<HTMLTextAreaElement>(null);
   const [numberOfInferenceSteps, setNumberOfInferenceSteps] = useState<number>(50);
   const [guidanceScale, setGuidanceScale] = useState<number>(4);
   const [outputQuality, setOutputQuality] = useState<number>(80);
-  const [width, setWidth] = useState<number>();
-  const [height, setHeight] = useState<number>();
-  const [scheduler, setScheduler] = useState<string>();
-  const [outputFormat, setOutputFormat] = useState<string>();
+  const [width, setWidth] = useState<number>(512);
+  const [height, setHeight] = useState<number>(512);
+  const [scheduler, setScheduler] = useState<string>('p_sampler');
+  const [outputFormat, setOutputFormat] = useState<string>('webp');
 
   //Classes
-  const textArea = 'text-xs text-neutral-500 font-semibold capitalize';
   const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
   return (
@@ -24,25 +22,11 @@ const Astra = () => {
         className='!w-0 !h-0 opacity-0 absolute !max-w-0 !max-h-0'
         readOnly={true}
       />
-      {/* <label className={textArea}>
-        Negative prompt
-        <textarea
-          ref={negativePrompt}
-          name='negative_prompt'
-          placeholder='Instruct the model on what to steer clear of or leave out when crafting the image'
-          className='text-lg font-bold font-nunito mt-3 textarea textarea-ghost w-full focus:bg-[unset] h-20'
-        />
-      </label> */}
 
       <div className='grid grid-cols-2 lg:flex flex-row justify-between gap-10 mb-10 flex-wrap max-lg:!px-2 '>
         <label className={label}>
           Width
-          <select
-            name='width'
-            defaultValue='Width'
-            value={width}
-            onChange={(e) => setWidth(+e.target.value)}
-            className={select}>
+          <select name='width' value={width} onChange={(e) => setWidth(+e.target.value)} className={select}>
             <option disabled>Width</option>
             <option value={256}>256</option>
             <option value={288}>288</option>
@@ -56,12 +40,7 @@ const Astra = () => {
 
         <label className={label}>
           Height
-          <select
-            name='height'
-            defaultValue='Height'
-            value={height}
-            onChange={(e) => setHeight(+e.target.value)}
-            className={select}>
+          <select name='height' value={height} onChange={(e) => setHeight(+e.target.value)} className={select}>
             <option disabled>Height</option>
 
             <option value={256}>256</option>
@@ -76,12 +55,7 @@ const Astra = () => {
 
         <label className={label}>
           Scheduler
-          <select
-            name='scheduler'
-            defaultValue='Scheduler'
-            value={scheduler}
-            onChange={(e) => setScheduler(e.target.value)}
-            className={select}>
+          <select name='scheduler' value={scheduler} onChange={(e) => setScheduler(e.target.value)} className={select}>
             <option disabled>Scheduler</option>
 
             <option value='p_sampler'>p_sampler</option>
@@ -94,7 +68,6 @@ const Astra = () => {
           Output Format
           <select
             name='output_format'
-            defaultValue='Format of the output images'
             value={outputFormat}
             onChange={(e) => setOutputFormat(e.target.value)}
             className={select}>
