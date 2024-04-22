@@ -47,7 +47,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
   return (
     <main
       className={
-        'w-full min-h-screen z-10 max-h-screen max-w-7xl mx-auto flex flex-row gap-10 justify-between pt-16 overflow-hidden'
+        'w-full min-h-screen z-10 max-h-screen max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-10 justify-between pt-16 overflow-hidden'
       }>
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
@@ -73,7 +73,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
       <form
         id='output'
         onSubmit={handleSubmit}
-        className='py-10 flex-1 flex space-between gap-8 flex-col overflow-y-auto px-1'>
+        className='py-10 flex-1 flex space-between gap-8 flex-col overflow-y-auto '>
         <div role='tablist' className='tabs tabs-boxed'>
           <Link
             href='/prompt/lorenzomarines-astra'
@@ -101,13 +101,13 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           name='prompt'
           placeholder='Write a prompt...'
           className={
-            'mt-3 rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-2xl'
+            'mt-3 max-sm:border-x-0 rounded-none sm:rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-lg sm:text-2xl'
           }
         />
         {/* </label> */}
 
         <div className='join join-vertical w-full'>
-          <div className='collapse collapse-arrow join-item border border-base-300'>
+          <div className='collapse collapse-arrow join-item max-sm:border-x-none max-sm:rounded-none border border-base-300'>
             <input type='checkbox' name='my-accordion-4' />
             <div className='collapse-title text-xl font-medium'>More Options</div>
             <div className='collapse-content'>{children}</div>
@@ -128,7 +128,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
 
       <div
         id='output'
-        className='relative w-full flex-1 border-l border-neutral-800 z-10 overflow-auto p-14 max-w-[50%] flex items-center justify-center'>
+        className=' px-5 md:px-8 xl:px-5 max-md:h-[40vh] relative w-full flex-1 border-l border-neutral-800 z-10 overflow-auto lg:p-14 lg:max-w-[50%] flex items-center justify-center'>
         {loading && !error && <div className='skeleton w-full h-full absolute rounded-none' />}
         {prediction && (
           <div className='relative border border-neutral-800 shadow-md shadow-blue-600/30 bg-neutral-950 rounded-lg '>
@@ -141,7 +141,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
                   alt='output'
                   width={500}
                   height={500}
-                  className='object-cover w-full h-full rounded-md border-gray-300 z-10'
+                  className='object-contain w-full h-full rounded-md border-gray-300 z-10'
                 />
               </div>
             )}
