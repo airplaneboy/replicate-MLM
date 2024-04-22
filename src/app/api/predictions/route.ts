@@ -65,7 +65,8 @@ export async function POST(req: Request) {
     );
   }
 
-  if (prediction?.error) return new Response(JSON.stringify({ detail: prediction.error.detail }), { status: 500 });
+  if (prediction?.error)
+    return new Response(JSON.stringify({ error: { detail: prediction.error.detail } }), { status: 500 });
 
   return new Response(JSON.stringify(prediction), { status: 201 });
 }

@@ -59,7 +59,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
       {error && showError == true && (
         <div
           role='alert'
-          className='alert shadow-lg shadow-black fixed top-10 max-w-lg left-1/2 right-1/2 -translate-x-1/2 z-50 flex flex-col gap-5 bg-transparent backdrop-blur'>
+          className='alert shadow-lg shadow-black fixed top-10 max-w-lg w-[90vw] left-1/2 right-1/2 -translate-x-1/2 z-50 flex flex-col gap-5 bg-transparent backdrop-blur'>
           <div className='flex flex-row justify-between w-full items-center'>
             <div className='flex gap-3 w-full items-center justify-center'>
               <svg
