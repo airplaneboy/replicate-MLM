@@ -74,13 +74,13 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
         id='output'
         onSubmit={handleSubmit}
         className='pt-5 pb-10 lg:py-10 flex-1 flex space-between gap-8 flex-col overflow-y-auto '>
-        <div role='tablist' className='tabs tabs-boxed'>
+        <div role='tablist' className='tabs tabs-boxed mx-5 lg:mx-0 flex flex-row justify-between items-center'>
           <Link
             href='/prompt/lorenzomarines-astra'
             role='tab'
             className={cn(
               segment == 'lorenzomarines-astra' && 'tab-active !text-white !bg-info ',
-              'tab font-bold font-nunito '
+              'tab font-extrabold font-nunito tracking-widest uppercase flex-1'
             )}>
             astra
           </Link>
@@ -89,7 +89,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
             role='tab'
             className={cn(
               segment == 'aiforever-kandinsky2' && 'tab-active !text-white !bg-info ',
-              'tab font-bold font-nunito '
+              'tab font-extrabold font-nunito tracking-widest uppercase flex-1'
             )}>
             kandinsky-2
           </Link>
@@ -101,7 +101,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           name='prompt'
           placeholder='Write a prompt...'
           className={
-            'mt-3 max-sm:border-x-0 rounded-none sm:rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-lg sm:text-2xl'
+            'mt-3 max-sm:border-x-0 rounded-none sm:p-5 lg:rounded-2xl textarea textarea-ghost w-full focus:bg-[unset] font-extrabold font-nunito h-32 text-lg sm:text-2xl'
           }
         />
         {/* </label> */}
