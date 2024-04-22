@@ -23,8 +23,8 @@ export async function POST(req: Request) {
 
     input: {
       prompt: data.get('prompt'),
-      width: Number(data.get('width') || 256),
-      height: Number(data.get('height') || 256),
+      width: Number(data.get('width') || 512),
+      height: Number(data.get('height') || 512),
       scheduler: data.get('scheduler') || 'p_sampler',
       output_format: data.get('output_format') || 'webp',
       guidance_scale: Number(data.get('guidance_scale') || 4),

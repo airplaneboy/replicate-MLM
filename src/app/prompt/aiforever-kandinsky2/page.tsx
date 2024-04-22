@@ -23,7 +23,7 @@ const Astra = () => {
         value='/aiforever-kandinsky2'
         className='!w-0 !h-0 opacity-0 absolute !max-w-0 !max-h-0'
       />
-      <label className={textArea}>
+      {/* <label className={textArea}>
         Negative prompt
         <textarea
           ref={negativePrompt}
@@ -31,7 +31,7 @@ const Astra = () => {
           placeholder='Instruct the model on what to steer clear of or leave out when crafting the image'
           className='text-lg font-bold font-nunito mt-3 textarea textarea-ghost w-full focus:bg-[unset] h-20'
         />
-      </label>
+      </label> */}
 
       <div className='flex flex-row justify-between gap-10 my-10 flex-wrap'>
         <label className={label}>
