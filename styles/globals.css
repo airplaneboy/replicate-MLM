@@ -69,3 +69,9 @@ body {
   border-radius: 100px !important;
   background-color: #424242 !important;
 }
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

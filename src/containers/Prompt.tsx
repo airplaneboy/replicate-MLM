@@ -16,6 +16,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
   const segment = useSelectedLayoutSegment();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log('was here');
     e.preventDefault();
     setLoading(true);
 

@@ -1,32 +1,38 @@
 'use client';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const Astra = () => {
-  const negativePrompt = useRef<HTMLTextAreaElement>(null);
+  const [negativePrompt, setNegativePrompt] = useState<string>(
+    'deformed iris, deformed pupils, semi-realistic, text, cropped, out of frame, worst quality, low quality, jpeg artifacts, ugly, duplicate, morbid, mutilated, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, dehydrated, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, fused fingers, too many fingers, long neck, blurry, low quality , bad quality , Not detailed, watermark, deformed figures, lack of details, bad anatomy, blurry, extra arms, extra fingers, poorly drawn hands, disfigured, tiling, deformed, mutated ,ugly, disfigured, low quality, blurry ,distorted, blur, smooth, low-quality, warm, haze, over-saturated, high-contrast, out of focus, dark, worst quality, low quality'
+  );
   const [numberOfInferenceSteps, setNumberOfInferenceSteps] = useState<number>(50);
   const [guidanceScale, setGuidanceScale] = useState<number>(4);
-  const [outputQuality, setOutputQuality] = useState<number>(80);
-  const [width, setWidth] = useState<number>();
-  const [height, setHeight] = useState<number>();
-  const [scheduler, setScheduler] = useState<string>();
-  const [outputFormat, setOutputFormat] = useState<string>();
+  const [promptStrength, setPromptStrength] = useState<number>(0.8);
+  const [width, setWidth] = useState<number>(1024);
+  const [height, setHeight] = useState<number>(1024);
+  const [scheduler, setScheduler] = useState<string>('K_EULER');
+  const [refine, setRefine] = useState<string>();
+  const [applyWatermark, setApplyWatermark] = useState<boolean>();
 
   //Classes
   const textArea = 'text-xs text-neutral-500 font-semibold capitalize';
   const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
+  const input: string | undefined =
+    'input input-bordered w-full max-w-xs font-extrabold font-nunito !bg-[unset] text-xl input-ghost';
   return (
     <div className='flex flex-col justify-evenly gap-5 font-nunito font-semibold text-neutral-400 py-10 px-2'>
       <input
         name='version'
         type='text'
-        value='/aiforever-kandinsky2'
+        value='/lorenzomarines-astra'
         className='!w-0 !h-0 opacity-0 absolute !max-w-0 !max-h-0'
       />
       <label className={textArea}>
         Negative prompt
         <textarea
-          ref={negativePrompt}
+          value={negativePrompt}
+          onChange={(e) => setNegativePrompt(e.target.value)}
           name='negative_prompt'
           placeholder='Instruct the model on what to steer clear of or leave out when crafting the image'
           className='text-lg font-bold font-nunito mt-3 textarea textarea-ghost w-full focus:bg-[unset] h-20'
@@ -36,41 +42,26 @@ const Astra = () => {
       <div className='flex flex-row justify-between gap-10 my-10 flex-wrap'>
         <label className={label}>
           Width
-          <select
-            name='width'
-            defaultValue='Width'
-            value={width}
+          <input
             onChange={(e) => setWidth(+e.target.value)}
-            className={select}>
-            <option disabled>Width</option>
-            <option value={256}>256</option>
-            <option value={288}>288</option>
-            <option value={432}>432</option>
-            <option value={512}>512</option>
-            <option value={576}>576</option>
-            <option value={768}>768</option>
-            <option value={1024}>1024</option>
-          </select>
+            value={width}
+            type='number'
+            placeholder='Width'
+            name='width'
+            className={input}
+          />
         </label>
 
         <label className={label}>
           Height
-          <select
-            name='height'
-            defaultValue='Height'
-            value={height}
+          <input
             onChange={(e) => setHeight(+e.target.value)}
-            className={select}>
-            <option disabled>Height</option>
-
-            <option value={256}>256</option>
-            <option value={288}>288</option>
-            <option value={432}>432</option>
-            <option value={512}>512</option>
-            <option value={576}>576</option>
-            <option value={768}>768</option>
-            <option value={1024}>1024</option>
-          </select>
+            value={height}
+            type='number'
+            placeholder='Height'
+            name='height'
+            className={input}
+          />
         </label>
 
         <label className={label}>
@@ -83,25 +74,29 @@ const Astra = () => {
             className={select}>
             <option disabled>Scheduler</option>
 
-            <option value='p_sampler'>p_sampler</option>
-            <option value='ddim_sampler'>ddim_sampler</option>
-            <option value='plms_sampler'>plms_sampler</option>
+            <option value='DDIM'>DDIM</option>
+            <option value='DPMSolverMultistep'>DPMSolverMultistep</option>
+            <option value='HeunDiscrete'>HeunDiscrete</option>
+            <option value='KarrasDPM'>KarrasDPM</option>
+            <option value='K_EULER_ANCESTRAL'>K_EULER_ANCESTRAL</option>
+            <option value='K_EULER'>K_EULER</option>
+            <option value='PNDM'>PNDM</option>
           </select>
         </label>
 
         <label className={label}>
-          Output Format
+          Refine
           <select
-            name='output_format'
-            defaultValue='Format of the output images'
-            value={outputFormat}
-            onChange={(e) => setOutputFormat(e.target.value)}
+            name='refine'
+            defaultValue='Refine'
+            value={refine}
+            onChange={(e) => setRefine(e.target.value)}
             className={select}>
-            <option disabled>Format of the output images</option>
+            <option disabled>Which refine style to use</option>
 
-            <option value='webp'>webp</option>
-            <option value='jpg'>jpg</option>
-            <option value='png'>png</option>
+            <option value='no_refiner'>no_refiner</option>
+            <option value='expert_ensemble_refiner'>expert_ensemble_refiner</option>
+            <option value='base_image_refiner'>base_image_refiner</option>
           </select>
         </label>
       </div>
@@ -150,26 +145,40 @@ const Astra = () => {
         </div>
       </label>
       <label>
-        Output Quality
+        Prompt Strength
         <div className='flex flex-row gap-5 items-center justify-between mt-3'>
           <input
-            value={outputQuality}
-            onChange={(e) => setOutputQuality(+e.target.value)}
-            name='output_quality'
+            value={promptStrength}
+            onChange={(e) => setPromptStrength(+e.target.value)}
+            name='prompt_strength'
             type='range'
             min={0}
-            max='100'
+            max='1'
+            step={0.01}
             className='range border-none range-info'
           />
           <input
             type='number'
             min={0}
-            max={100}
+            max={1}
+            step={0.01}
             className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
-            value={outputQuality}
-            onChange={(e) => setOutputQuality(+e.target.value)}
+            value={promptStrength}
+            onChange={(e) => setPromptStrength(+e.target.value)}
           />
         </div>
+      </label>
+
+      <label className='cursor-pointer label mt-10 flex flex-row justify-start gap-10 items-center w-full'>
+        <span className='label-text text-base'>Apply Watermark</span>
+        <input
+          type='checkbox'
+          name='apply_watermark'
+          defaultChecked
+          checked={applyWatermark}
+          onChange={(e) => setApplyWatermark(e.target.checked ? true : false)}
+          className='checkbox checkbox-info !min-h-[34px]'
+        />
       </label>
     </div>
   );
