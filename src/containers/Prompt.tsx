@@ -47,7 +47,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
   return (
     <main
       className={
-        'w-full min-h-screen z-10 max-h-screen max-w-7xl mx-auto flex flex-col-reverse lg:flex-row gap-10 justify-between pt-16 overflow-hidden'
+        'w-full min-h-screen z-10 max-h-screen max-w-7xl mx-auto flex flex-col-reverse lg:flex-row lg:gap-10 justify-between pt-16 overflow-hidden'
       }>
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
@@ -73,7 +73,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
       <form
         id='output'
         onSubmit={handleSubmit}
-        className='py-10 flex-1 flex space-between gap-8 flex-col overflow-y-auto '>
+        className='pt-5 pb-10 lg:py-10 flex-1 flex space-between gap-8 flex-col overflow-y-auto '>
         <div role='tablist' className='tabs tabs-boxed'>
           <Link
             href='/prompt/lorenzomarines-astra'
@@ -116,7 +116,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
 
         <button
           type='submit'
-          className='relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-md capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
+          className='self-center lg:self-start relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-md capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
           <Image
             src={PaperPlane}
             alt='git animated paper plane'
@@ -128,7 +128,9 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
 
       <div
         id='output'
-        className=' px-5 md:px-8 xl:px-5 max-md:h-[40vh] relative w-full flex-1 border-l border-neutral-800 z-10 overflow-auto lg:p-14 lg:max-w-[50%] flex items-center justify-center'>
+        className=' px-5 md:px-8 xl:px-5 max-md:h-[40vh] relative w-full flex-1 border-l border-neutral-800 z-10 overflow-auto lg:p-14 lg:max-w-[50%] flex items-center justify-center bg-dot-thick-neutral-700'>
+        <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black lg:bg-gradient-radial lg:from-transparent lg:via-black/70 lg:to-black z-10' />
+        {/* <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10' /> */}
         {loading && !error && <div className='skeleton w-full h-full absolute rounded-none' />}
         {prediction && (
           <div className='relative border border-neutral-800 shadow-md shadow-blue-600/30 bg-neutral-950 rounded-lg '>
