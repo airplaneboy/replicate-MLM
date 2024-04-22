@@ -16,7 +16,6 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
   const segment = useSelectedLayoutSegment();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log('was here');
     e.preventDefault();
     setLoading(true);
 
@@ -40,10 +39,10 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
         setError(prediction.detail);
         return setLoading(false);
       }
-      console.log({ prediction });
+
       setPrediction(prediction);
-      setLoading(false);
     }
+    setLoading(false);
   };
   return (
     <main
@@ -80,7 +79,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
             href='/prompt/lorenzomarines-astra'
             role='tab'
             className={cn(
-              segment == 'lorenzomarines-astra' && 'tab-active !text-white !bg-blue-800 ',
+              segment == 'lorenzomarines-astra' && 'tab-active !text-white !bg-info ',
               'tab font-bold font-nunito '
             )}>
             astra
@@ -89,7 +88,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
             href='/prompt/aiforever-kandinsky2'
             role='tab'
             className={cn(
-              segment == 'aiforever-kandinsky2' && 'tab-active !text-white !bg-blue-800 ',
+              segment == 'aiforever-kandinsky2' && 'tab-active !text-white !bg-info ',
               'tab font-bold font-nunito '
             )}>
             kandinsky-2

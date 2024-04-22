@@ -29,14 +29,14 @@ export async function POST(req: Request) {
             prompt: data.get('prompt'),
             refine: data.get('refine'),
             scheduler: data.get('scheduler'),
-            // lora_scale: 0.6,
-            // num_outputs: 1,
             guidance_scale: Number(data.get('guidance_scale')),
             apply_watermark: Boolean(data.get('apply_watermark')),
-            // high_noise_frac: 0.8,
             negative_prompt: data.get('negative_prompt'),
             prompt_strength: Number(data.get('prompt_strength') || 0.8),
             num_inference_steps: Number(data.get('num_inference_steps') || 50),
+            // num_outputs: 1,
+            // lora_scale: 0.6,
+            // high_noise_frac: 0.8,
           }
         : {
             prompt: data.get('prompt'),
