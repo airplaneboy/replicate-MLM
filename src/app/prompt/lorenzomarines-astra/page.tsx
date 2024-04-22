@@ -27,6 +27,7 @@ const Astra = () => {
         type='text'
         value='/lorenzomarines-astra'
         className='!w-0 !h-0 opacity-0 absolute !max-w-0 !max-h-0'
+        readOnly={true}
       />
       <label className={textArea + ' px-2'}>
         Negative prompt

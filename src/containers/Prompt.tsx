@@ -11,7 +11,8 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const Prompt = ({ children }: { children: React.ReactNode }) => {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<{ title: string; detail: string; status: number } | undefined | null>(null);
+  const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
   const segment = useSelectedLayoutSegment();
 
@@ -26,7 +27,8 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
 
     let prediction = await response.json();
     if (response.status !== 201) {
-      setError(prediction.detail);
+      setError(prediction.error);
+      setShowError(true);
       return setLoading(false);
     }
     setPrediction(prediction);
@@ -36,7 +38,8 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
       const response = await fetch('/api/predictions/' + prediction.id, { cache: 'no-store' });
       prediction = await response.json();
       if (response.status !== 200) {
-        setError(prediction.detail);
+        setError(prediction.error);
+        setShowError(true);
         return setLoading(false);
       }
 
@@ -53,21 +56,40 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
-      {error && (
-        <div role='alert' className='alert alert-error fixed top-10 max-w-sm left-1/2 right-1/2 -translate-x-1/2 z-50'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='stroke-current shrink-0 h-6 w-6'
-            fill='none'
-            viewBox='0 0 24 24'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
-            />
-          </svg>
-          <span>{error}</span>
+      {error && showError == true && (
+        <div
+          role='alert'
+          className='alert shadow-lg shadow-black fixed top-10 max-w-lg left-1/2 right-1/2 -translate-x-1/2 z-50 flex flex-col gap-5 bg-transparent backdrop-blur'>
+          <div className='flex flex-row justify-between w-full items-center'>
+            <div className='flex gap-3 w-full items-center justify-center'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                className='stroke-info shrink-0 w-6 h-6'>
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'></path>
+              </svg>
+              <h3 className='font-bold text-gray-300'>{error.title}</h3>
+            </div>
+            <button
+              onClick={() => setShowError(false)}
+              className='btn btn-square btn-sm btn-outline border-none transition-none hover:text-error hover:bg-transparent'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                className='h-6 w-6'
+                fill='none'
+                viewBox='0 0 24 24'
+                stroke='currentColor'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M6 18L18 6M6 6l12 12' />
+              </svg>
+            </button>
+          </div>
+
+          <div className='text-xs'>{error.detail}</div>
         </div>
       )}
       <form
@@ -131,7 +153,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
         className=' px-5 md:px-8 xl:px-5 max-md:h-[40vh] relative w-full flex-1 border-l border-neutral-800 z-10 overflow-auto lg:p-14 lg:max-w-[50%] flex items-center justify-center bg-dot-thick-neutral-700'>
         <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black lg:bg-gradient-radial lg:from-transparent lg:via-black/70 lg:to-black z-10' />
         {/* <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10' /> */}
-        {loading && !error && <div className='skeleton w-full h-full absolute rounded-none' />}
+        {loading && (error == null || undefined) && <div className='skeleton w-full h-full absolute rounded-none' />}
         {prediction && (
           <div className='relative border border-neutral-800 shadow-md shadow-blue-600/30 bg-neutral-950 rounded-lg '>
             <span className='absolute inset-0 blur-2xl bg-gradient-to-r from-green-600 via-purple-600 to-blue-600 ' />
