@@ -45,11 +45,23 @@ body {
 ::-webkit-scrollbar {
   width: 12px !important;
   background-color: #000 !important;
+  border-radius: 100px !important;
+}
+#output::-webkit-scrollbar {
+  width: 8px !important;
+  background-color: #000 !important;
+  border-radius: 100px !important;
+}
+#output::-webkit-scrollbar-thumb {
+  border: 2px solid #000 !important;
+  border-radius: 100px !important;
+  background-color: #424242 !important;
 }
 
 ::-webkit-scrollbar-track {
   background-color: #00000000 !important;
   margin-block: 12px !important;
+  border-radius: 100px !important;
 }
 
 ::-webkit-scrollbar-thumb {

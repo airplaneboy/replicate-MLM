@@ -1,19 +1,29 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 const Astra = () => {
   const negativePrompt = useRef<HTMLTextAreaElement>(null);
-  const [numberOfInferenceSteps, setNumberOfInferenceSteps] = useState<number>();
-  const [guidanceScale, setGuidanceScale] = useState<number>();
-  const [outputQuality, setOutputQuality] = useState<number>();
+  const [numberOfInferenceSteps, setNumberOfInferenceSteps] = useState<number>(50);
+  const [guidanceScale, setGuidanceScale] = useState<number>(4);
+  const [outputQuality, setOutputQuality] = useState<number>(80);
   const [width, setWidth] = useState<number>();
   const [height, setHeight] = useState<number>();
   const [scheduler, setScheduler] = useState<string>();
   const [outputFormat, setOutputFormat] = useState<string>();
 
+  //Classes
+  const textArea = 'text-xs text-neutral-500 font-semibold capitalize';
+  const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-[45%] gap-3';
+  const select = 'select select-bordered w-full max-w-xs bg-black truncate';
   return (
     <div className='flex flex-col justify-evenly gap-5 font-nunito font-semibold text-neutral-400 py-10 px-2'>
-      <label className='text-xs text-neutral-500 font-semibold capitalize'>
+      <input
+        name='version'
+        type='text'
+        value='/aiforever-kandinsky2'
+        className='!w-0 !h-0 opacity-0 absolute !max-w-0 !max-h-0'
+      />
+      <label className={textArea}>
         Negative prompt
         <textarea
           ref={negativePrompt}
@@ -23,62 +33,77 @@ const Astra = () => {
         />
       </label>
 
-      <div className='flex flex-row justify-between gap-10 my-10'>
-        <select
-          name='width'
-          defaultValue='Width'
-          value={width}
-          onChange={(e) => setWidth(+e.target.value)}
-          className='select select-bordered w-full max-w-xs bg-black truncate'>
-          <option disabled>Width</option>
-          <option value={256}>256</option>
-          <option value={288}>288</option>
-          <option value={432}>432</option>
-          <option value={512}>512</option>
-          <option value={576}>576</option>
-          <option value={768}>768</option>
-          <option value={1024}>1024</option>
-        </select>
+      <div className='flex flex-row justify-between gap-10 my-10 flex-wrap'>
+        <label className={label}>
+          Width
+          <select
+            name='width'
+            defaultValue='Width'
+            value={width}
+            onChange={(e) => setWidth(+e.target.value)}
+            className={select}>
+            <option disabled>Width</option>
+            <option value={256}>256</option>
+            <option value={288}>288</option>
+            <option value={432}>432</option>
+            <option value={512}>512</option>
+            <option value={576}>576</option>
+            <option value={768}>768</option>
+            <option value={1024}>1024</option>
+          </select>
+        </label>
 
-        <select
-          name='height'
-          defaultValue='Height'
-          value={height}
-          onChange={(e) => setHeight(+e.target.value)}
-          className='select select-bordered w-full max-w-xs bg-black truncate'>
-          <option disabled>Height</option>
+        <label className={label}>
+          Height
+          <select
+            name='height'
+            defaultValue='Height'
+            value={height}
+            onChange={(e) => setHeight(+e.target.value)}
+            className={select}>
+            <option disabled>Height</option>
 
-          <option disabled>Width</option>
-          <option value={256}>256</option>
-          <option value={288}>288</option>
-          <option value={432}>432</option>
-          <option value={512}>512</option>
-          <option value={576}>576</option>
-          <option value={768}>768</option>
-          <option value={1024}>1024</option>
-        </select>
+            <option value={256}>256</option>
+            <option value={288}>288</option>
+            <option value={432}>432</option>
+            <option value={512}>512</option>
+            <option value={576}>576</option>
+            <option value={768}>768</option>
+            <option value={1024}>1024</option>
+          </select>
+        </label>
 
-        <select
-          name='scheduler'
-          defaultValue='Scheduler'
-          className='select select-bordered w-full max-w-xs bg-black truncate'>
-          <option disabled>Scheduler</option>
+        <label className={label}>
+          Scheduler
+          <select
+            name='scheduler'
+            defaultValue='Scheduler'
+            value={scheduler}
+            onChange={(e) => setScheduler(e.target.value)}
+            className={select}>
+            <option disabled>Scheduler</option>
 
-          <option value='p_sampler'>p_sampler</option>
-          <option value='ddim_sampler'>ddim_sampler</option>
-          <option value='plms_sampler'>plms_sampler</option>
-        </select>
+            <option value='p_sampler'>p_sampler</option>
+            <option value='ddim_sampler'>ddim_sampler</option>
+            <option value='plms_sampler'>plms_sampler</option>
+          </select>
+        </label>
 
-        <select
-          name='output_format'
-          defaultValue='Format of the output images'
-          className='select select-bordered w-full max-w-xs bg-black truncate'>
-          <option disabled>Format of the output images</option>
+        <label className={label}>
+          Output Format
+          <select
+            name='output_format'
+            defaultValue='Format of the output images'
+            value={outputFormat}
+            onChange={(e) => setOutputFormat(e.target.value)}
+            className={select}>
+            <option disabled>Format of the output images</option>
 
-          <option value='webp'>webp</option>
-          <option value='jpg'>jpg</option>
-          <option value='png'>png</option>
-        </select>
+            <option value='webp'>webp</option>
+            <option value='jpg'>jpg</option>
+            <option value='png'>png</option>
+          </select>
+        </label>
       </div>
       <label>
         Number of denoising steps

@@ -12,10 +12,12 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const Prompt = ({ children }: { children: React.ReactNode }) => {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const segment = useSelectedLayoutSegment();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const response = await fetch('/api/predictions', {
       method: 'POST',
@@ -25,7 +27,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
     let prediction = await response.json();
     if (response.status !== 201) {
       setError(prediction.detail);
-      return;
+      return setLoading(false);
     }
     setPrediction(prediction);
 
@@ -35,20 +37,24 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
       prediction = await response.json();
       if (response.status !== 200) {
         setError(prediction.detail);
-        return;
+        return setLoading(false);
       }
       console.log({ prediction });
       setPrediction(prediction);
+      setLoading(false);
     }
   };
   return (
-    <main className={'w-full min-h-[calc(100vh_-_132px)] max-w-7xl mx-auto flex flex-row gap-10 justify-between '}>
+    <main
+      className={
+        'w-full min-h-screen z-10 max-h-screen max-w-7xl mx-auto flex flex-row gap-10 justify-between pt-16 overflow-hidden'
+      }>
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
 
       {error && (
-        <div role='alert' className='alert alert-error'>
+        <div role='alert' className='alert alert-error fixed top-10 max-w-sm left-1/2 right-1/2 -translate-x-1/2 z-50'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             className='stroke-current shrink-0 h-6 w-6'
@@ -64,7 +70,10 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           <span>{error}</span>
         </div>
       )}
-      <form onSubmit={handleSubmit} className='flex-1 flex space-between gap-8 flex-col'>
+      <form
+        id='output'
+        onSubmit={handleSubmit}
+        className='py-10 flex-1 flex space-between gap-8 flex-col overflow-y-auto px-1'>
         <div role='tablist' className='tabs tabs-boxed'>
           <Link
             href='/prompt/lorenzomarines-astra'
@@ -107,7 +116,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
 
         <button
           type='submit'
-          className='relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-xl capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
+          className='relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-md capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
           <Image
             src={PaperPlane}
             alt='git animated paper plane'
@@ -116,9 +125,13 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
           generate
         </button>
       </form>
-      <div className='w-full flex-1 border border-neutral-800 rounded-lg'>
+
+      <div
+        id='output'
+        className='relative w-full flex-1 border-l border-neutral-800 z-10 overflow-auto p-14 max-w-[50%] flex items-center justify-center'>
+        {loading && !error && <div className='skeleton w-full h-full absolute rounded-none' />}
         {prediction && (
-          <div className='relative right-16 border border-neutral-800 bg-neutral-950 rounded-lg '>
+          <div className='relative border border-neutral-800 shadow-md shadow-blue-600/30 bg-neutral-950 rounded-lg '>
             <span className='absolute inset-0 blur-2xl bg-gradient-to-r from-green-600 via-purple-600 to-blue-600 ' />
 
             {prediction.output && (
