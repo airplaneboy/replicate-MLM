@@ -6,7 +6,6 @@ import HeroText from '@/components/HeroText';
 export default function HeroHighlightDemo() {
   return (
     <>
-      <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/90 z-10' />
       <HeroHighlight>
         <motion.h1
           initial={{

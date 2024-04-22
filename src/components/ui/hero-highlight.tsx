@@ -49,6 +49,7 @@ export const HeroHighlight = ({
           `,
         }}
       />
+      <div className='absolute inset-0 bg-gradient-to-b from-black via-transparent to-black/90 z-10' />
 
       <div className={cn('relative z-20', className)}>{children}</div>
     </div>
