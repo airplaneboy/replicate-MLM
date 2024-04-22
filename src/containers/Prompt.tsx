@@ -138,11 +138,11 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
 
         <button
           type='submit'
-          className='self-center lg:self-start relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-md capitalize tracking-tighter font-extrabold h-fit w-fit mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
+          className='self-center lg:self-start relative px-20 btn btn-active bg-white text-black hover:!bg-white rounded-2xl !text-md capitalize tracking-tighter font-extrabold h-fit w-fit lg:mt-10 overflow-hidden flex flex-row gap-5 justify-between'>
           <Image
             src={PaperPlane}
             alt='git animated paper plane'
-            className='scale-75 object-cover rounded-md border-gray-300 z-10 h-full overflow-visible rotate-45 absolute left-5'
+            className='scale-75 object-cover rounded-md border-gray-300 z-10 h-full w-auto rotate-45 absolute left-5'
           />
           generate
         </button>

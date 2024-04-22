@@ -11,7 +11,7 @@ const Astra = () => {
   const [width, setWidth] = useState<number>(1024);
   const [height, setHeight] = useState<number>(1024);
   const [scheduler, setScheduler] = useState<string>('K_EULER');
-  const [refine, setRefine] = useState<string>();
+  const [refine, setRefine] = useState<string>('no_refiner');
   const [applyWatermark, setApplyWatermark] = useState<boolean>();
 
   //Classes
@@ -73,7 +73,7 @@ const Astra = () => {
           Scheduler
           <select
             name='scheduler'
-            defaultValue='Scheduler'
+            // defaultValue='Scheduler'
             value={scheduler}
             onChange={(e) => setScheduler(e.target.value)}
             className={select}>
@@ -93,7 +93,7 @@ const Astra = () => {
           Refine
           <select
             name='refine'
-            defaultValue='Refine'
+            // defaultValue='Refine'
             value={refine}
             onChange={(e) => setRefine(e.target.value)}
             className={select}>
