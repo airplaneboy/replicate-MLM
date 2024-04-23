@@ -10,10 +10,14 @@ const Astra = () => {
   const [scheduler, setScheduler] = useState<string>('p_sampler');
   const [outputFormat, setOutputFormat] = useState<string>('webp');
   const [batchSize, setBatchSize] = useState<number>(1);
+  const [priorCFScale, setPriorCFScale] = useState<number>(4);
+  const [priorSteps, setPriorSteps] = useState<string>('5');
 
   //Classes
   const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
+  const input: string | undefined =
+    'input input-bordered w-full max-w-xs font-extrabold font-nunito !bg-[unset] text-xl input-ghost';
   return (
     <div className='flex flex-col justify-evenly gap-5 font-nunito font-semibold text-neutral-400 py-10 px-2'>
       <input
@@ -94,6 +98,30 @@ const Astra = () => {
             <option value='3'>3</option>
             <option value='4'>4</option>
           </select>
+        </label>
+
+        <label className={label}>
+          Prior CF Scale
+          <input
+            onChange={(e) => setPriorCFScale(+e.target.value)}
+            value={priorCFScale}
+            type='number'
+            placeholder='Prior CF Scale'
+            name='prior_cf_scale'
+            className={input}
+          />
+        </label>
+
+        <label className={label}>
+          Prior Steps
+          <input
+            onChange={(e) => setPriorSteps(e.target.value)}
+            value={priorSteps}
+            type='number'
+            placeholder='Prior Steps'
+            name='prior_steps'
+            className={input}
+          />
         </label>
       </div>
 

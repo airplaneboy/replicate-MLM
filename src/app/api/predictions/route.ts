@@ -37,9 +37,9 @@ export async function POST(req: Request) {
               negative_prompt: data.get('negative_prompt'),
               prompt_strength: Number(data.get('prompt_strength') || 0.8),
               num_inference_steps: Number(data.get('num_inference_steps') || 50),
-              // num_outputs: 1,
-              // lora_scale: 0.6,
-              // high_noise_frac: 0.8,
+              num_outputs: Number(data.get('num_outputs') || 1),
+              lora_scale: Number(data.get('lora_scale') || 0.6),
+              high_noise_frac: Number(data.get('high_noise_frac') || 0.8),
             }
           : {
               prompt: data.get('prompt'),
@@ -50,9 +50,9 @@ export async function POST(req: Request) {
               guidance_scale: Number(data.get('guidance_scale') || 4),
               output_quality: Number(data.get('output_quality') || 80),
               num_inference_steps: Number(data.get('num_inference_steps') || 50),
-              // batch_size: 1,
-              // prior_steps: '5',
-              // prior_cf_scale: 4,
+              batch_size: Number(data.get('batch_size') || 1),
+              prior_steps: data.get('prior_steps') || '5',
+              prior_cf_scale: Number(data.get('prior_cf_scale') || 4),
             },
     });
   } catch (error: any) {
