@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Nunito } from 'next/font/google';
 import '../../styles/globals.css';
 // import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
+// import Navbar from '@/components/Navbar';
 // import { Courier_Prime } from 'next/font/google';
 
 // const courierPrime = Courier_Prime({
@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body className={`${inter.className} ${nunito.variable} `}>
-        <Navbar />
+        {/* <Navbar /> */}
         {/* <div className='pt-20'> */}
         {children}
         {/* </div> */}

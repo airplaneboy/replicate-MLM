@@ -27,7 +27,6 @@ const ImageGrid = () => {
           <div>
             <Image className='h-auto max-w-full rounded-lg' src={Image3} alt='' />
           </div>
-          d
         </div>
         <div className='grid gap-4'>
           <div>
