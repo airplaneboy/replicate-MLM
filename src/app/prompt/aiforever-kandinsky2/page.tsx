@@ -9,6 +9,7 @@ const Astra = () => {
   const [height, setHeight] = useState<number>(512);
   const [scheduler, setScheduler] = useState<string>('p_sampler');
   const [outputFormat, setOutputFormat] = useState<string>('webp');
+  const [batchSize, setBatchSize] = useState<number>(1);
 
   //Classes
   const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
@@ -76,6 +77,22 @@ const Astra = () => {
             <option value='webp'>webp</option>
             <option value='jpg'>jpg</option>
             <option value='png'>png</option>
+          </select>
+        </label>
+
+        <label className={label}>
+          Batch Size
+          <select
+            name='batch_size'
+            value={batchSize}
+            onChange={(e) => setBatchSize(+e.target.value)}
+            className={select}>
+            <option disabled>Choose batch size. Lower the setting if out of memory.</option>
+
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
           </select>
         </label>
       </div>
