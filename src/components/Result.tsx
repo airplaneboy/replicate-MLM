@@ -1,16 +1,34 @@
+'use client';
 import ImageCarousel from './ImageCarousel';
 import Image from 'next/image';
 import Image1 from '../public/1.webp';
+import Image2 from '../public/2.webp';
+import Image3 from '../public/3.webp';
+import Image4 from '../public/4.webp';
+import Image5 from '../public/5.webp';
+import { useState } from 'react';
 
 const Result = () => {
+  const [images, setImages] = useState([
+    { src: Image1 },
+    { src: Image2 },
+    { src: Image3 },
+    { src: Image4 },
+    { src: Image5 },
+  ]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
   return (
     <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5'>
       <div>
-        <Image alt='generated image' src={Image1} className='!rounded-none' />
+        <Image alt='generated image' src={images[selectedImageIndex].src} className='!rounded-none' />
         <ImageCarousel
           imageClass='object-cover h-20 max-h-[80px] min-w-[80px] max-w-[80px] rounded-xl'
-          className='space-x-4 !rounded-none px-5 mt-2'
+          className='space-x-4 !rounded-none px-8 py-2 mt-2'
           vignette={true}
+          setSelectedImageIndex={setSelectedImageIndex}
+          selectedImageIndex={selectedImageIndex}
+          content={[{ src: Image1 }, { src: Image2 }, { src: Image3 }, { src: Image4 }, { src: Image5 }]}
         />
       </div>
 
