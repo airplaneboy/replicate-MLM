@@ -89,7 +89,7 @@ const Prompt = ({ children }: { children: React.ReactNode }) => {
             </button>
           </div>
 
-          <div className='text-xs'>{error.detail}</div>
+          <div className='text-xs text-center'>{error.detail}</div>
         </div>
       )}
       <form
