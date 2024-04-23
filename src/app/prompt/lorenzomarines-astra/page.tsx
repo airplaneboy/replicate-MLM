@@ -12,12 +12,16 @@ const Astra = () => {
   const [height, setHeight] = useState<number>(1024);
   const [scheduler, setScheduler] = useState<string>('K_EULER');
   const [refine, setRefine] = useState<string>('no_refiner');
+  const [numOutputs, setNumOutputs] = useState<number>(1);
+  const [loraScale, setLoraScale] = useState<number>(0.6);
+  const [highNoiseFrac, setHighNoiseFrac] = useState<number>(0.8);
   const [applyWatermark, setApplyWatermark] = useState<boolean>();
 
   //Classes
   const textArea = 'text-xs text-neutral-500 font-semibold capitalize';
   const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
+  const sliderContent = 'flex flex-row gap-5 items-center justify-between';
   const input: string | undefined =
     'input input-bordered w-full max-w-xs font-extrabold font-nunito !bg-[unset] text-xl input-ghost';
   return (
@@ -106,10 +110,10 @@ const Astra = () => {
         </label>
       </div>
 
-      <div className='max-lg:!px-2 '>
+      <div className='max-lg:!px-2 gap-5 sm:gap-10 flex flex-col'>
         <label>
           Number of denoising steps
-          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+          <div className={sliderContent}>
             <input
               value={numberOfInferenceSteps}
               onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
@@ -131,7 +135,7 @@ const Astra = () => {
         </label>
         <label>
           Scale for classifier-free guidance
-          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+          <div className={sliderContent}>
             <input
               value={guidanceScale}
               onChange={(e) => setGuidanceScale(+e.target.value)}
@@ -153,7 +157,7 @@ const Astra = () => {
         </label>
         <label>
           Prompt Strength
-          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+          <div className={sliderContent}>
             <input
               value={promptStrength}
               onChange={(e) => setPromptStrength(+e.target.value)}
@@ -172,6 +176,76 @@ const Astra = () => {
               className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
               value={promptStrength}
               onChange={(e) => setPromptStrength(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          Number of images to output
+          <div className={sliderContent}>
+            <input
+              value={numOutputs}
+              onChange={(e) => setNumOutputs(+e.target.value)}
+              name='num_outputs'
+              type='range'
+              min={1}
+              max='4'
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={1}
+              max={4}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={numOutputs}
+              onChange={(e) => setNumOutputs(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          Fraction of noise to use for expert_ensemble_refiner
+          <div className={sliderContent}>
+            <input
+              value={highNoiseFrac}
+              onChange={(e) => setHighNoiseFrac(+e.target.value)}
+              name='high_noise_frac'
+              type='range'
+              min={0}
+              max='1'
+              step={0.01}
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={0}
+              max={1}
+              step={0.01}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={highNoiseFrac}
+              onChange={(e) => setHighNoiseFrac(+e.target.value)}
+            />
+          </div>
+        </label>
+        <label>
+          LoRA additive scale (Only applicable on trained models)
+          <div className={sliderContent}>
+            <input
+              value={loraScale}
+              onChange={(e) => setLoraScale(+e.target.value)}
+              name='lora_scale'
+              type='range'
+              min={0}
+              max='1'
+              step={0.01}
+              className='range border-none range-info'
+            />
+            <input
+              type='number'
+              min={0}
+              max={1}
+              step={0.01}
+              className='input input-bordered max-w-xs w-20 text-center font-extrabold text-lg'
+              value={loraScale}
+              onChange={(e) => setLoraScale(+e.target.value)}
             />
           </div>
         </label>

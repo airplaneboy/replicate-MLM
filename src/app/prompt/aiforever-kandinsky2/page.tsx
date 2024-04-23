@@ -16,6 +16,7 @@ const Astra = () => {
   //Classes
   const label = 'text-xs text-neutral-500 font-semibold capitalize flex flex-col w-full lg:w-[45%] gap-3';
   const select = 'select select-bordered w-full max-w-xs bg-black truncate';
+  const sliderContent = 'flex flex-row gap-5 items-center justify-between';
   const input: string | undefined =
     'input input-bordered w-full max-w-xs font-extrabold font-nunito !bg-[unset] text-xl input-ghost';
   return (
@@ -125,10 +126,10 @@ const Astra = () => {
         </label>
       </div>
 
-      <div className='max-lg:!px-2 '>
+      <div className='max-lg:!px-2 gap-5 sm:gap-10 flex flex-col'>
         <label>
           Number of denoising steps
-          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+          <div className={sliderContent}>
             <input
               value={numberOfInferenceSteps}
               onChange={(e) => setNumberOfInferenceSteps(+e.target.value)}
@@ -150,7 +151,7 @@ const Astra = () => {
         </label>
         <label>
           Scale for classifier-free guidance
-          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+          <div className={sliderContent}>
             <input
               value={guidanceScale}
               onChange={(e) => setGuidanceScale(+e.target.value)}
@@ -172,7 +173,7 @@ const Astra = () => {
         </label>
         <label>
           Output Quality
-          <div className='flex flex-row gap-5 items-center justify-between mt-3'>
+          <div className={sliderContent}>
             <input
               value={outputQuality}
               onChange={(e) => setOutputQuality(+e.target.value)}
