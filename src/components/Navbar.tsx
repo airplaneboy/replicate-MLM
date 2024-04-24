@@ -1,9 +1,23 @@
 import Link from 'next/link';
 
-const Navbar = () => {
+const Navbar = ({ showClose = false, onClose }: { showClose?: boolean; onClose?: () => void }) => {
   return (
     <div className='navbar bg-base-100 fixed w-full z-50 top-0 bg-black/70 backdrop-blur-sm !max-h-14 shadow-md shadow-neutral-950'>
       <div className='navbar-start'>
+        {showClose && (
+          <button
+            onClick={onClose}
+            className='btn h-full ml-[14px] btn-square btn-sm btn-outline border-none transition-none hover:text-error hover:bg-transparent'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              className='h-10 w-10'
+              fill='none'
+              viewBox='0 0 24 24'
+              stroke='currentColor'>
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M6 18L18 6M6 6l12 12' />
+            </svg>
+          </button>
+        )}
         <div className='dropdown'>
           {/* <div tabIndex={0} role='button' className='btn btn-ghost btn-circle'>
             <svg
