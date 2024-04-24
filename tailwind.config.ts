@@ -38,6 +38,9 @@ const config: Config = {
       );
     },
   ],
+  daisyui: {
+    themes: ['dark'],
+  },
 };
 
 export default config;
