@@ -1,10 +1,13 @@
 'use client';
-import React from 'react';
+import { useState } from 'react';
 import Navbar from './Navbar';
 import BottomNav from './BottomNav';
 import { useSelectedLayoutSegment } from 'next/navigation';
+import getRandomPrompt from '@/app/utils/randomPrompts';
 
 const PromptPage = ({ children }: { children: React.ReactNode }) => {
+  const [randomPrompt, setRandomPrompt] = useState<string | undefined>('');
+
   return (
     <>
       <Navbar />
@@ -21,7 +24,11 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
         </label>
 
         <div className='flex flex-row gap-5 px-5 mb-10'>
-          <button className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>✨Random Prompt</button>
+          <button
+            onClick={() => setRandomPrompt(getRandomPrompt())}
+            className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>
+            ✨Random Prompt
+          </button>
         </div>
 
         {children}
