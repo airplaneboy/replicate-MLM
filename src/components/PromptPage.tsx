@@ -15,7 +15,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [error, setError] = useState<{ title: string; detail: string; status: number } | undefined | null>(null);
   const [showError, setShowError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const pathname = usePathname();
 
@@ -53,7 +53,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {loading == true && <Loading />}
+      {/* {loading == true && <Loading />} */}
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
@@ -96,41 +96,39 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
       {loading == false && <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />}
       {prediction?.output && <Result output={prediction.output} prompt={(prediction.input as any).prompt} />}
       {loading == false && prediction == null && (
-        <>
-          <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
-            <label className='text-base font-bold capitalize font-nunito px-5'>
-              Enter Prompt
-              <textarea
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                name='prompt'
-                placeholder='Describe your image...'
-                className={
-                  'mt-3 bg-neutral-950 lg:max-w-[calc(100%_-_8px)] self-center sm:p-5 rounded-2xl textarea textarea-ghost w-full font-extrabold font-nunito h-32 text-lg sm:text-2xl'
-                }
-              />
-            </label>
+        <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
+          <label className='text-base font-bold capitalize font-nunito px-5'>
+            Enter Prompt
+            <textarea
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              name='prompt'
+              placeholder='Describe your image...'
+              className={
+                'mt-3 bg-neutral-950 lg:max-w-[calc(100%_-_8px)] self-center sm:p-5 rounded-2xl textarea textarea-ghost w-full font-extrabold font-nunito h-32 text-lg sm:text-2xl'
+              }
+            />
+          </label>
 
-            <div className='flex flex-row gap-5 px-5 mb-10'>
-              <button
-                type='button'
-                onClick={() => setPrompt(getRandomPrompt())}
-                className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>
-                ✨Random Prompt
-              </button>
-            </div>
-
-            {children}
-
+          <div className='flex flex-row gap-5 px-5 mb-10'>
             <button
-              type='submit'
-              className='text-center w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
-              Generate Image
+              type='button'
+              onClick={() => setPrompt(getRandomPrompt())}
+              className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>
+              ✨Random Prompt
             </button>
+          </div>
 
-            <BottomNav pathname={pathname} />
-          </form>
-        </>
+          {children}
+
+          <button
+            type='submit'
+            className='text-center w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+            Generate Image
+          </button>
+
+          <BottomNav pathname={pathname} />
+        </form>
       )}
     </>
   );
