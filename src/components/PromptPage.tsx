@@ -93,9 +93,9 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
           <div className='text-xs text-center'>{error.detail}</div>
         </div>
       )}
-      {!loading && <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />}
+      {loading == false && <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />}
       {prediction?.output && <Result output={prediction.output} prompt={(prediction.input as any).prompt} />}
-      {loading == false && !prediction?.output && (
+      {loading == false && prediction == null && (
         <>
           <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
             <label className='text-base font-bold capitalize font-nunito px-5'>

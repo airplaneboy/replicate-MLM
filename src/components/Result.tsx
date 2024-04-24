@@ -21,7 +21,11 @@ const Result = ({ output, prompt }: { output: any; prompt: any }) => {
   return (
     <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50'>
       <div>
-        <Image alt='generated image' src={output} className='!rounded-none' />
+        <Image
+          alt='generated image'
+          src={Array.isArray(output) ? output[selectedImageIndex] : output}
+          className='!rounded-none'
+        />
 
         {Array.isArray(output) && (
           <ImageCarousel
