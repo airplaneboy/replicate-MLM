@@ -6,7 +6,8 @@ import { useSelectedLayoutSegment } from 'next/navigation';
 import getRandomPrompt from '@/app/utils/randomPrompts';
 
 const PromptPage = ({ children }: { children: React.ReactNode }) => {
-  const [randomPrompt, setRandomPrompt] = useState<string | undefined>('');
+  // const [randomPrompt, setRandomPrompt] = useState<string | undefined>('');
+  const [prompt, setPrompt] = useState<string>();
 
   return (
     <>
@@ -15,6 +16,8 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
         <label className='text-base font-bold capitalize font-nunito px-5'>
           Enter Prompt
           <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
             name='prompt'
             placeholder='Describe your image...'
             className={
@@ -25,7 +28,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
         <div className='flex flex-row gap-5 px-5 mb-10'>
           <button
-            onClick={() => setRandomPrompt(getRandomPrompt())}
+            onClick={() => setPrompt(getRandomPrompt())}
             className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>
             ✨Random Prompt
           </button>

@@ -19,7 +19,7 @@ const HeroText = () => {
         </span>
 
         <Link
-          href='/prompt/lorenzomarines-astra'
+          href='/generate/lorenzomarines-astra'
           className='btn !bg-info max-w-fit text-white hover:shadow-lg relative flex items-center justify-center hover:border hover:border-gray-300 mt-8'>
           <span className='absolute inset-0 blur-2xl bg-gradient-to-r from-green-600 via-purple-600 to-blue-600 hover:opacity-100 opacity-0 !z-10' />
           <span className='z-[11] pointer-events-none'>Generate Images Now</span>
