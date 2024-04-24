@@ -2,13 +2,12 @@
 import { useState } from 'react';
 import Navbar from './Navbar';
 import BottomNav from './BottomNav';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import getRandomPrompt from '@/app/utils/randomPrompts';
+import Link from 'next/link';
 
 const PromptPage = ({ children }: { children: React.ReactNode }) => {
-  // const [randomPrompt, setRandomPrompt] = useState<string | undefined>('');
   const [prompt, setPrompt] = useState<string>();
-
   return (
     <>
       <Navbar />
@@ -36,11 +35,13 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
         {children}
 
-        <button className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+        <Link
+          href={`${usePathname()}/result`}
+          className='text-center w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
           Generate Image
-        </button>
+        </Link>
 
-        <BottomNav segment={useSelectedLayoutSegment()} />
+        <BottomNav pathname={usePathname()} />
       </div>
     </>
   );
