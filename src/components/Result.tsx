@@ -40,7 +40,7 @@ const Result = () => {
           praesentium. Nemo, perferendis!
         </div>
       </div>
-      <button className='w-full max-w-xs py-4 px-8 bg-white text-black font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+      <button className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
         Re-Generate
       </button>
     </div>
