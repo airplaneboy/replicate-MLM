@@ -7,6 +7,7 @@ import getRandomPrompt from '@/app/utils/randomPrompts';
 import { Prediction } from 'replicate';
 import Head from 'next/head';
 import Result from './Result';
+import Loading from '@/components/Loading';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const PromptPage = ({ children }: { children: React.ReactNode }) => {
@@ -15,6 +16,8 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<{ title: string; detail: string; status: number } | undefined | null>(null);
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const pathname = usePathname();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,6 +53,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
+      {loading && <Loading />}
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
@@ -89,40 +93,44 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
           <div className='text-xs text-center'>{error.detail}</div>
         </div>
       )}
-      <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />
-      <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
-        <label className='text-base font-bold capitalize font-nunito px-5'>
-          Enter Prompt
-          <textarea
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            name='prompt'
-            placeholder='Describe your image...'
-            className={
-              'mt-3 bg-neutral-950 lg:max-w-[calc(100%_-_8px)] self-center sm:p-5 rounded-2xl textarea textarea-ghost w-full font-extrabold font-nunito h-32 text-lg sm:text-2xl'
-            }
-          />
-        </label>
+      {!loading && <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />}
+      {(!loading || !prediction?.output) && (
+        <>
+          <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
+            <label className='text-base font-bold capitalize font-nunito px-5'>
+              Enter Prompt
+              <textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                name='prompt'
+                placeholder='Describe your image...'
+                className={
+                  'mt-3 bg-neutral-950 lg:max-w-[calc(100%_-_8px)] self-center sm:p-5 rounded-2xl textarea textarea-ghost w-full font-extrabold font-nunito h-32 text-lg sm:text-2xl'
+                }
+              />
+            </label>
 
-        <div className='flex flex-row gap-5 px-5 mb-10'>
-          <button
-            type='button'
-            onClick={() => setPrompt(getRandomPrompt())}
-            className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>
-            ✨Random Prompt
-          </button>
-        </div>
+            <div className='flex flex-row gap-5 px-5 mb-10'>
+              <button
+                type='button'
+                onClick={() => setPrompt(getRandomPrompt())}
+                className='py-3 px-4 bg-transparent border-2 border-white rounded-full'>
+                ✨Random Prompt
+              </button>
+            </div>
 
-        {children}
+            {children}
 
-        <button
-          type='submit'
-          className='text-center w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
-          Generate Image
-        </button>
+            <button
+              type='submit'
+              className='text-center w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+              Generate Image
+            </button>
 
-        <BottomNav pathname={usePathname()} />
-      </form>
+            <BottomNav pathname={pathname} />
+          </form>
+        </>
+      )}
       {prediction?.output && <Result output={prediction.output} prompt={(prediction.input as any).prompt} />}
     </>
   );
