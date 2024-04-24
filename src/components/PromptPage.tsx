@@ -16,17 +16,52 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = useState<{ title: string; detail: string; status: number } | undefined | null>(null);
   const [showError, setShowError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState<FormData>();
 
   const pathname = usePathname();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const regenerate = async () => {
     setLoading(true);
 
     const response = await fetch('/api/predictions', {
       method: 'POST',
-      body: new FormData(e.currentTarget),
+      body: formData,
     });
+
+    let prediction = await response.json();
+    if (response.status !== 201) {
+      setError(prediction.error);
+      setShowError(true);
+      return setLoading(false);
+    }
+    setPrediction(prediction);
+
+    while (prediction.status !== 'succeeded' && prediction.status !== 'failed') {
+      await sleep(1000);
+      const response = await fetch('/api/predictions/' + prediction.id, { cache: 'no-store' });
+      prediction = await response.json();
+      if (response.status !== 200) {
+        setError(prediction.error);
+        setShowError(true);
+        return setLoading(false);
+      }
+
+      setPrediction(prediction);
+    }
+    setLoading(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    setLoading(true);
+
+    const formDataValue = new FormData(e?.currentTarget);
+    const response = await fetch('/api/predictions', {
+      method: 'POST',
+      body: formDataValue,
+    });
+
+    setFormData(formDataValue);
 
     let prediction = await response.json();
     if (response.status !== 201) {
@@ -53,7 +88,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {/* {loading == true && <Loading />} */}
+      {loading == true && <Loading />}
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
@@ -94,7 +129,14 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
         </div>
       )}
       {loading == false && <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />}
-      {prediction?.output && <Result output={prediction.output} prompt={(prediction.input as any).prompt} />}
+      {prediction?.output && (
+        <Result
+          input={formData}
+          regenerate={regenerate}
+          output={prediction.output}
+          prompt={(prediction.input as any).prompt}
+        />
+      )}
       {loading == false && prediction == null && (
         <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
           <label className='text-base font-bold capitalize font-nunito px-5'>
@@ -122,8 +164,9 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
           {children}
 
           <button
+            disabled={!prompt?.trim()}
             type='submit'
-            className='text-center w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+            className='text-center disabled:bg-neutral-800 disabled:text-neutral-500 w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-20 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
             Generate Image
           </button>
 

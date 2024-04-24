@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { cn } from '@/utils/cn';
 
 const ImageCarousel = ({
@@ -28,6 +28,8 @@ const ImageCarousel = ({
               onClick={() => {
                 setSelectedImageIndex(index);
               }}
+              width={40}
+              height={40}
               key={index}
               alt='generated image'
               src={item}

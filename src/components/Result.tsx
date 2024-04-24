@@ -3,17 +3,38 @@ import ImageCarousel from './ImageCarousel';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const Result = ({ output, prompt }: { output: any; prompt: any }) => {
+const Result = ({
+  output,
+  prompt,
+  regenerate,
+}: {
+  output: any;
+  prompt: any;
+  input?: any;
+  regenerate: (e?: React.FormEvent<HTMLFormElement>, input?: any) => Promise<void>;
+}) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50'>
+    <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16'>
       <div>
-        <Image
-          alt='generated image'
-          src={Array.isArray(output) ? output[selectedImageIndex] : output}
-          className='!rounded-none w-full h-auto object-contain'
-        />
+        {loaded == true ? (
+          <Image
+            onLoad={() => {
+              console.log('loaded');
+              setLoaded(true);
+            }}
+            priority={true}
+            width={500}
+            height={500}
+            alt='generated image'
+            src={Array.isArray(output) ? output[selectedImageIndex] : output}
+            className='!rounded-none w-full h-auto object-contain'
+          />
+        ) : (
+          <span className='fixed text-7xl text-white top-0 left-0 z-50'>Loading..</span>
+        )}
 
         {Array.isArray(output) && (
           <ImageCarousel
@@ -33,7 +54,10 @@ const Result = ({ output, prompt }: { output: any; prompt: any }) => {
           {prompt}
         </div>
       </div>
-      <button className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+      <button
+        type='button'
+        onClick={() => regenerate()}
+        className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
         Re-Generate
       </button>
     </div>
