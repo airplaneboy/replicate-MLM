@@ -15,7 +15,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [error, setError] = useState<{ title: string; detail: string; status: number } | undefined | null>(null);
   const [showError, setShowError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const pathname = usePathname();
 
