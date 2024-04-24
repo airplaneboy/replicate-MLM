@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const BottomNav = ({ pathname }: { pathname: string | null }) => {
   return (
-    <div className='btm-nav bg-black/50 backdrop-blur px-5'>
+    <div className='btm-nav bg-black/50 backdrop-blur px-5 z-[51]'>
       <Link
         href='/generate/lorenzomarines-astra'
         role='tab'

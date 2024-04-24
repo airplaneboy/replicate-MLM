@@ -19,7 +19,7 @@ const Result = ({ output, prompt }: { output: any; prompt: any }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   return (
-    <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5'>
+    <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50'>
       <div>
         <Image alt='generated image' src={output} className='!rounded-none' />
 
