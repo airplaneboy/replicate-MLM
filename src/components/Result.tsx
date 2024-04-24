@@ -17,24 +17,22 @@ const Result = ({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16'>
-      <div>
-        {loaded == true ? (
-          <Image
-            onLoad={() => {
-              console.log('loaded');
-              setLoaded(true);
-            }}
-            priority={true}
-            width={500}
-            height={500}
-            alt='generated image'
-            src={Array.isArray(output) ? output[selectedImageIndex] : output}
-            className='!rounded-none w-full h-auto object-contain'
-          />
-        ) : (
-          <span className='fixed text-7xl text-white top-0 left-0 z-50'>Loading..</span>
-        )}
+    // <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16'>
+    <>
+      <div className='relative'>
+        {loaded == false && <div className='skeleton !w-full !h-full inset-0 z-40 !absolute rounded-none' />}
+        <Image
+          onLoad={() => setLoaded(true)}
+          priority={true}
+          width={500}
+          height={500}
+          alt='generated image'
+          src={Array.isArray(output) ? output[selectedImageIndex] : output}
+          className={
+            (loaded && '!opacity-100') +
+            ' !rounded-none w-full h-auto object-contain opacity-0 transition-opacity duration-300'
+          }
+        />
 
         {Array.isArray(output) && (
           <ImageCarousel
@@ -57,10 +55,11 @@ const Result = ({
       <button
         type='button'
         onClick={() => regenerate()}
-        className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-50'>
+        className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-40'>
         Re-Generate
       </button>
-    </div>
+      {/* </div> */}
+    </>
   );
 };
 

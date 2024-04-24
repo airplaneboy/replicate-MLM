@@ -8,6 +8,7 @@ import { Prediction } from 'replicate';
 import Head from 'next/head';
 import Result from './Result';
 import Loading from '@/components/Loading';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const PromptPage = ({ children }: { children: React.ReactNode }) => {
@@ -88,7 +89,18 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {loading == true && <Loading />}
+      {loading == true && (
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ ease: 'easeInOut', duration: 0.75 }}
+            className='h-full min-h-screen w-full flex justify-between flex-col z-50'>
+            <Loading />
+          </motion.div>
+        </AnimatePresence>
+      )}
       <Head>
         <title>{process.env.NEXT_PUBLIC_SITE_NAME}</title>
       </Head>
@@ -130,12 +142,21 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
       )}
       {loading == false && <Navbar showClose={prediction?.output} onClose={() => setPrediction(null)} />}
       {prediction?.output && (
-        <Result
-          input={formData}
-          regenerate={regenerate}
-          output={prediction.output}
-          prompt={(prediction.input as any).prompt}
-        />
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ ease: 'easeInOut', duration: 0.75 }}
+            className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16'>
+            <Result
+              input={formData}
+              regenerate={regenerate}
+              output={prediction.output}
+              prompt={(prediction.input as any).prompt}
+            />
+          </motion.div>
+        </AnimatePresence>
       )}
       {loading == false && prediction == null && (
         <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
