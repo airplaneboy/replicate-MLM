@@ -1,4 +1,4 @@
-import { DotLottiePlayer, PlayerEvents } from '@dotlottie/react-player';
+import { DotLottiePlayer, PlayMode } from '@dotlottie/react-player';
 import '@dotlottie/react-player/dist/index.css';
 
 const LottieLoading = () => {
@@ -7,7 +7,7 @@ const LottieLoading = () => {
       className='absolute inset-0 w-full scale-150'
       src='/Animation - 1714013295222.lottie'
       autoplay
-      playMode='bounce'
+      playMode={'bounce' as PlayMode}
       // speed={2}
       loop></DotLottiePlayer>
   );
