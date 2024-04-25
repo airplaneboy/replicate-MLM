@@ -5,5 +5,5 @@
   "eslint.validate": ["typescript"],
   "editor.formatOnSave": true,
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "cSpell.words": ["AIFOREVER", "ASTRA", "daisyui", "denoising", "LORENZOMARINES"]
+  "cSpell.words": ["AIFOREVER", "ASTRA", "daisyui", "denoising", "dotlottie", "LORENZOMARINES"]
 }

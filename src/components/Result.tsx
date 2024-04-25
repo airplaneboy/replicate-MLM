@@ -17,7 +17,6 @@ const Result = ({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    // <div className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16'>
     <>
       <div className='relative'>
         {loaded == false && <div className='skeleton !w-full !h-full inset-0 z-40 !absolute rounded-none' />}
@@ -58,7 +57,6 @@ const Result = ({
         className='w-full max-w-xs py-4 px-8 bg-info text-white font-bold font-nunito fixed bottom-10 rounded-full left-1/2 -translate-x-1/2 shadow-lg shadow-black z-40'>
         Re-Generate
       </button>
-      {/* </div> */}
     </>
   );
 };

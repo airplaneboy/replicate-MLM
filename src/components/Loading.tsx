@@ -1,5 +1,6 @@
 import React from 'react';
 import Carousel from './Carousel';
+import LottieLoading from './LottieLoading';
 
 const Loading = () => {
   const contentArray = [
@@ -49,8 +50,9 @@ const Loading = () => {
   return (
     <>
       <div className='relative w-full h-full flex-[3] flex items-center justify-center'>
-        <span className='loading loading-ring w-full h-full absolute inset-0'></span>
-        <span className=' font-extrabold font-nunito text-2xl text-neutral-500 z-10 animate-pulse delay-500 duration-500'>
+        <LottieLoading />
+        {/* <span className='loading loading-ring w-full h-full absolute inset-0'></span> */}
+        <span className=' font-extrabold font-nunito text-2xl text-neutral-500 z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#00A0FF] via-[#7E50FF] to-[#FD00FF] font-mono'>
           Generating...
         </span>
       </div>
