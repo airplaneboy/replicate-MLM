@@ -27,7 +27,7 @@ const Astra = () => {
     'input input-bordered w-full max-w-xs font-extrabold font-nunito !bg-[unset] text-xl input-ghost';
   return (
     <PromptPage>
-      <div className='flex flex-col justify-evenly gap-5 font-nunito font-semibold text-neutral-400 py-10 px-5'>
+      <div className='max-w-3xl mx-auto flex flex-col justify-evenly gap-5 font-nunito font-semibold text-neutral-400 py-10 px-5'>
         <input
           name='version'
           type='text'

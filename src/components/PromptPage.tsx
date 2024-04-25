@@ -1,13 +1,13 @@
 'use client';
-import { useState } from 'react';
 import Navbar from './Navbar';
 import BottomNav from './BottomNav';
-import { usePathname } from 'next/navigation';
 import getRandomPrompt from '@/app/utils/randomPrompts';
-import { Prediction } from 'replicate';
 import Head from 'next/head';
 import Result from './Result';
 import Loading from '@/components/Loading';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+import { Prediction } from 'replicate';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -16,7 +16,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
   const [prediction, setPrediction] = useState<Prediction | null>(null);
   const [error, setError] = useState<{ title: string; detail: string; status: number } | undefined | null>(null);
   const [showError, setShowError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState<FormData>();
 
   const pathname = usePathname();
@@ -96,7 +96,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: 'easeInOut', duration: 0.75 }}
-            className='h-full min-h-screen w-full flex justify-between flex-col z-50'>
+            className='h-full min-h-screen w-full flex justify-between flex-col z-50 max-w-2xl lg:max-w-4xl mx-auto'>
             <Loading />
           </motion.div>
         </AnimatePresence>
@@ -148,7 +148,7 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: 'easeInOut', duration: 0.75 }}
-            className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16'>
+            className='h-full min-h-screen w-full flex justify-between flex-col gap-5 z-50 pt-16 max-w-2xl lg:max-w-4xl mx-auto'>
             <Result
               input={formData}
               regenerate={regenerate}
@@ -159,7 +159,9 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
         </AnimatePresence>
       )}
       {loading == false && prediction == null && (
-        <form onSubmit={handleSubmit} className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36'>
+        <form
+          onSubmit={handleSubmit}
+          className='h-full min-h-screen w-full flex flex-col gap-5 pt-20 pb-36 max-w-2xl lg:max-w-4xl mx-auto'>
           <label className='text-base font-bold capitalize font-nunito px-5'>
             Enter Prompt
             <textarea

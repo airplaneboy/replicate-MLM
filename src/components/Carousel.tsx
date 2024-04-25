@@ -11,10 +11,13 @@ const Carousel = ({
 }) => {
   const carouselItem: string | undefined = 'carousel-item h-auto px-4';
   return (
-    <div className={className + ' pb-16'}>
+    <div className={className + ' pb-16 mt-3'}>
       {heading && heading}
       <div className='relative'>
-        <div className=' inset-0 bg-gradient-to-r from-black/75 via-transparent to-black/75 z-10 absolute pointer-events-none' />
+        <div
+          className=' inset-0 bg-[linear-gradient(90deg,_rgba(0,0,0,1)_0%,_rgba(0,0,0,0)_15%,_rgba(0,0,0,0)_85%,_rgba(0,0,0,1)_100%)]
+ z-10 absolute pointer-events-none'
+        />
         <div className='carousel rounded-box max-w-full '>
           {content.map((item) => {
             return (

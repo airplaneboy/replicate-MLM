@@ -47,11 +47,12 @@ const Loading = () => {
     },
   ];
   return (
-    // <div className='h-full min-h-screen w-full flex justify-between flex-col z-50'>
     <>
       <div className='relative w-full h-full flex-[3] flex items-center justify-center'>
         <span className='loading loading-ring w-full h-full absolute inset-0'></span>
-        <span className=' font-extrabold font-nunito text-2xl text-neutral-500 z-10'>Generating Your Images... </span>
+        <span className=' font-extrabold font-nunito text-2xl text-neutral-500 z-10 animate-pulse delay-500 duration-500'>
+          Generating...
+        </span>
       </div>
       <Carousel
         content={contentArray}
@@ -61,7 +62,6 @@ const Loading = () => {
           </div>
         }
       />
-      {/* </div> */}
     </>
   );
 };

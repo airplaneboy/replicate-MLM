@@ -6,7 +6,9 @@ const replicate = new Replicate({
 });
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
+  let prediction;
   try {
+    prediction = await replicate.predictions.get(params.id);
   } catch (error: any) {
     const errorMessage = error.message;
 
@@ -16,11 +18,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
       { status: 500 }
     );
   }
-  const prediction = await replicate.predictions.get(params.id);
 
   if (prediction?.error) {
     return new Response(JSON.stringify({ error: { detail: prediction.error.detail } }), { status: 500 });
   }
-
   return new Response(JSON.stringify(prediction), { status: 200 });
 }
