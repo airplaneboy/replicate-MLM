@@ -7,9 +7,10 @@ const LottieLoading = () => {
       className='absolute inset-0 w-full scale-150'
       src='/Animation - 1714013295222.lottie'
       autoplay
-      playMode={'bounce' as PlayMode}
+      playMode={PlayMode.Bounce}
       // speed={2}
-      loop></DotLottiePlayer>
+      loop
+    />
   );
 };
 

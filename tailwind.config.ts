@@ -17,7 +17,6 @@ const config: Config = {
       },
       fontFamily: {
         inter: ['var(--font-inter)'],
-        // courierPrime: ['var(--font-courierPrime)'],
         nunito: ['var(--font-nunito)'],
       },
     },
