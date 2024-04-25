@@ -5,6 +5,8 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
+export const fetchCache = 'force-no-store';
+
 export async function GET(request: Request, { params }: { params: { id: string } }) {
   let prediction;
   try {

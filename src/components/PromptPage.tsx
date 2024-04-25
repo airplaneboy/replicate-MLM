@@ -21,37 +21,36 @@ const PromptPage = ({ children }: { children: React.ReactNode }) => {
 
   const pathname = usePathname();
 
-  const regenerate = async () => console.log('i was regenerated');
-  // const regenerate = async () => {
-  //   setLoading(true);
+  const regenerate = async () => {
+    setLoading(true);
 
-  //   const response = await fetch('/api/predictions', {
-  //     method: 'POST',
-  //     body: formData,
-  //   });
+    const response = await fetch('/api/predictions', {
+      method: 'POST',
+      body: formData,
+    });
 
-  //   let prediction = await response.json();
-  //   if (response.status !== 201) {
-  //     setError(prediction.error);
-  //     setShowError(true);
-  //     return setLoading(false);
-  //   }
-  //   setPrediction(prediction);
+    let prediction = await response.json();
+    if (response.status !== 201) {
+      setError(prediction.error);
+      setShowError(true);
+      return setLoading(false);
+    }
+    setPrediction(prediction);
 
-  //   while (prediction.status !== 'succeeded' && prediction.status !== 'failed') {
-  //     await sleep(1000);
-  //     const response = await fetch('/api/predictions/' + prediction.id, { cache: 'no-store' });
-  //     prediction = await response.json();
-  //     if (response.status !== 200) {
-  //       setError(prediction.error);
-  //       setShowError(true);
-  //       return setLoading(false);
-  //     }
+    while (prediction.status !== 'succeeded' && prediction.status !== 'failed') {
+      await sleep(1000);
+      const response = await fetch('/api/predictions/' + prediction.id, { cache: 'no-store' });
+      prediction = await response.json();
+      if (response.status !== 200) {
+        setError(prediction.error);
+        setShowError(true);
+        return setLoading(false);
+      }
 
-  //     setPrediction(prediction);
-  //   }
-  //   setLoading(false);
-  // };
+      setPrediction(prediction);
+    }
+    setLoading(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();

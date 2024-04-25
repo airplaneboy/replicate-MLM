@@ -5,6 +5,10 @@ const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
 });
 
+export const fetchCache = 'force-no-store';
+// 'auto' | 'default-cache' | 'only-cache'
+// 'force-cache' | 'force-no-store' | 'default-no-store' | 'only-no-store'
+
 export async function POST(req: Request) {
   const data = await req.formData();
 
